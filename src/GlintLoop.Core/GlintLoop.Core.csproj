@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>GlintLoop.Core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="GlintLoop.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\bluenoise64.bin" LogicalName="GlintLoop.Core.Assets.bluenoise64.bin" />
+  </ItemGroup>
+</Project>

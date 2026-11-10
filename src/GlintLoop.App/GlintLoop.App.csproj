@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>GlintLoop</AssemblyName>
+    <RootNamespace>GlintLoop.App</RootNamespace>
+    <!-- asInvoker・PerMonitorV2・longPathAware(INV-13・FR-99) -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Main は Program.cs に自分で書く(App.xaml を ApplicationDefinition にしない) -->
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <StartupObject>GlintLoop.App.Program</StartupObject>
+    <!-- WPF0001: Application.ThemeMode(Fluent テーマ)は実験的 API の扱い(Q-19 で Fluent に Mica を任せると決めた) -->
+    <NoWarn>$(NoWarn);WPF0001</NoWarn>
+    <!-- ログの v に版の文字列だけを入れるため、情報の版に commit の印を付けない(§0) -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <!-- 単一ファイルの publish で、WPF と SkiaSharp のネイティブ部品も exe に入れ、起動時に展開する(Q-22 の (a)) -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+  <!-- SkiaSharp のパッケージが持つネイティブの pdb は DebugType では消えないので、publish の一覧から外す(AC-62 の (1)) -->
+  <Target Name="ExcludePackagePdbFromPublish" AfterTargets="ComputeResolvedFilesToPublishList">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="'%(ResolvedFileToPublish.Extension)' == '.pdb'" />
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <InternalsVisibleTo Include="GlintLoop.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- §9.12 の文言の表と画面の固定の文言(この 2 つのファイルにだけ文言を書く) -->
+    <EmbeddedResource Include="Text/notices.tsv" LogicalName="GlintLoop.App.Text.notices.tsv" />
+    <EmbeddedResource Include="Text/ui.tsv" LogicalName="GlintLoop.App.Text.ui.tsv" />
+    <!-- 「このソフトについて」(FR-103)が読む MIT ライセンスの全文と依存ライブラリの一覧(Q-3) -->
+    <EmbeddedResource Include="..\..\LICENSE" LogicalName="GlintLoop.App.LICENSE" />
+    <!-- INV-3 の検査はアセンブリの参照とメタデータの名前を見る(埋め込みリソースの中身は対象外)ので、ビルドだけで使うシェーダーのコンパイラの行があっても埋め込める -->
+    <EmbeddedResource Include="..\..\THIRD-PARTY-NOTICES.md" LogicalName="GlintLoop.App.THIRD-PARTY-NOTICES.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GlintLoop.Core\GlintLoop.Core.csproj" />
+    <ProjectReference Include="..\GlintLoop.Codec\GlintLoop.Codec.csproj" />
+    <ProjectReference Include="..\GlintLoop.Render\GlintLoop.Render.csproj" />
+  </ItemGroup>
+</Project>

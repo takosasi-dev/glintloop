@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "id": "gradmap",
+  "name": "グラデーションマップ",
+  "stage": "look",
+  "group": "色",
+  "keywords": ["グラデーション", "gradient map", "gradmap", "oklab"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "n", "label": "色の数", "type": "enum", "default": "2",
+     "options": [{"value": "2", "label": "2色"}, {"value": "3", "label": "3色"}]},
+    {"key": "c0", "label": "暗部の色", "type": "color", "default": "#1B1033FF"},
+    {"key": "c1", "label": "中間の色", "type": "color", "default": "#FF7AA8FF", "visibleWhen": {"n": ["3"]}},
+    {"key": "c2", "label": "明部の色", "type": "color", "default": "#FFE9B0FF"},
+    {"key": "mid", "label": "中間の位置", "type": "float", "min": 10, "max": 90, "default": 50, "unit": "%", "visibleWhen": {"n": ["3"]}}
+  ],
+  "passes": [
+    {"id": "main", "shader": "gradmap", "inputs": ["src"], "scale": 1, "bind": {"n": "n", "c0": "c0", "c1": "c1", "c2": "c2", "mid": "mid", "amount": "$amount"}}
+  ]
+}

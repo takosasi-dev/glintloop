@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "id": "leaks",
+  "name": "ライトリーク",
+  "stage": "motion",
+  "group": "色と光",
+  "keywords": ["leaks", "lightleak", "ライトリーク", "光漏れ", "フィルム"],
+  "amountMode": "scale",
+  "scaleParams": ["intensity"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "palette", "label": "色の組", "type": "enum", "default": "warm",
+     "options": [{"value": "warm", "label": "暖色"}, {"value": "cool", "label": "寒色"}, {"value": "sunset", "label": "夕焼け"}, {"value": "rainbow", "label": "虹色"}]},
+    {"key": "size", "label": "光の大きさ", "type": "float", "min": 100, "max": 1000, "default": 450, "unit": "‰"},
+    {"key": "intensity", "label": "光の強さ", "type": "float", "min": 0, "max": 200, "default": 70, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "leaks", "inputs": ["src"], "scale": 1,
+     "bind": {"palette": "palette", "size": "size", "intensity": "intensity",
+              "t": "$t", "cycles": "$cycles", "phase": "$phase", "frame": "$frame", "seed": "$seed", "salt": "$salt"}}
+  ]
+}

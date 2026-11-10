@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "id": "huecycle",
+  "name": "虹色",
+  "stage": "motion",
+  "group": "色と光",
+  "keywords": ["huecycle", "rainbow", "虹色", "色相", "ゲーミング"],
+  "amountMode": "mix",
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "mode", "label": "回り方", "type": "enum", "default": "full",
+     "options": [{"value": "full", "label": "一周"}, {"value": "swing", "label": "往復"}]},
+    {"key": "range", "label": "振れ幅", "type": "float", "min": 10, "max": 180, "default": 60, "unit": "deg",
+     "visibleWhen": {"mode": ["swing"]}}
+  ],
+  "passes": [
+    {"id": "main", "shader": "huecycle", "inputs": ["src"], "scale": 1,
+     "bind": {"mode": "mode", "range": "range", "t": "$t", "cycles": "$cycles", "phase": "$phase"}}
+  ]
+}

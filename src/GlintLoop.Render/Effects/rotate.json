@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "rotate",
+  "name": "回転",
+  "stage": "shape",
+  "group": "寸法",
+  "keywords": ["回転", "rotate", "角度", "angle"],
+  "amountMode": "none",
+  "timeDependent": false,
+  "sizeRule": "rotateFit",
+  "params": [
+    {"key": "angle", "label": "角度", "type": "angle", "min": -180, "max": 180, "default": 0, "step": 0.1, "unit": "deg"},
+    {"key": "fit", "label": "収め方", "type": "enum", "default": "expand",
+     "options": [{"value": "expand", "label": "全体が入る"}, {"value": "inside", "label": "余白なし"}]}
+  ],
+  "passes": []
+}

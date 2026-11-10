@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "id": "waves",
+  "name": "波打ち",
+  "stage": "finish",
+  "group": "ひずみ",
+  "keywords": ["waves", "wave", "sine", "波", "ゆれ"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "dir", "label": "向き", "type": "enum", "default": "h",
+     "options": [{"value": "h", "label": "横にゆれる"}, {"value": "v", "label": "縦にゆれる"}, {"value": "both", "label": "両方"}]},
+    {"key": "amp", "label": "振幅", "type": "float", "min": 0, "max": 60, "default": 8, "step": 0.1, "unit": "‰"},
+    {"key": "len", "label": "波長", "type": "float", "min": 10, "max": 500, "default": 100, "step": 1, "unit": "‰"},
+    {"key": "phase", "label": "位相", "type": "angle", "min": 0, "max": 360, "default": 0, "step": 1, "unit": "deg", "handle": false}
+  ],
+  "passes": [
+    {"id": "main", "shader": "waves", "inputs": ["src"], "scale": 1,
+     "bind": {"dir": "dir", "amp": "amp", "len": "len", "phase": "phase", "shortSide": "$shortSide"}}
+  ]
+}

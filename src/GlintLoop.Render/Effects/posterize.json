@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "posterize",
+  "name": "ポスタリゼーション",
+  "stage": "look",
+  "group": "表現",
+  "keywords": ["階調", "減色", "posterize", "poster"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "levels", "label": "階調数", "type": "int", "min": 2, "max": 16, "default": 5}
+  ],
+  "passes": [
+    {"id": "main", "shader": "posterize", "inputs": ["src"], "scale": 1, "bind": {"levels": "levels"}}
+  ]
+}

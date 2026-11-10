@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "hue",
+  "name": "色相",
+  "stage": "look",
+  "group": "色",
+  "keywords": ["色相", "hue", "shift", "oklab"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "shift", "label": "色相のずらし", "type": "angle", "min": -180, "max": 180, "default": 0, "unit": "deg", "handle": false}
+  ],
+  "passes": [
+    {"id": "main", "shader": "hue", "inputs": ["src"], "scale": 1, "bind": {"shift": "shift", "amount": "$amount"}}
+  ]
+}

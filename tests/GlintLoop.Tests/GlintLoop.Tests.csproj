@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>GlintLoop.Tests</RootNamespace>
+    <!-- WPF0001: Application.ThemeMode(Fluent テーマ)は実験的 API の扱い(製品と同じ) -->
+    <NoWarn>$(NoWarn);WPF0001</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GlintLoop.App\GlintLoop.App.csproj" />
+    <ProjectReference Include="..\..\src\GlintLoop.Codec\GlintLoop.Codec.csproj" />
+    <ProjectReference Include="..\..\src\GlintLoop.Core\GlintLoop.Core.csproj" />
+    <ProjectReference Include="..\..\src\GlintLoop.Render\GlintLoop.Render.csproj" />
+    <ProjectReference Include="..\..\tools\make-bluenoise\make-bluenoise.csproj" />
+    <!-- 集計ツールはプロセスとして起動するだけなので参照に入れず、ビルドだけ揃える(AC-59 の (11)) -->
+    <ProjectReference Include="..\..\tools\perf-report\perf-report.csproj" ReferenceOutputAssembly="false" OutputItemType="PerfReportTargetPath" />
+  </ItemGroup>
+  <!-- ビルドが返した出力の場所から exe のパスを求め、テストのアセンブリのメタデータで渡す(出力先を推測で固定しない) -->
+  <Target Name="AddPerfReportExeMetadata" BeforeTargets="GetAssemblyAttributes" DependsOnTargets="ResolveProjectReferences">
+    <ItemGroup>
+      <AssemblyMetadata Include="GlintLoop.PerfReportExe" Value="@(PerfReportTargetPath->'%(RootDir)%(Directory)%(Filename).exe')" />
+    </ItemGroup>
+  </Target>
+</Project>

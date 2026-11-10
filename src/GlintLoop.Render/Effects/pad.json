@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "id": "pad",
+  "name": "余白",
+  "stage": "shape",
+  "group": "寸法",
+  "keywords": ["余白", "pad", "padding", "枠"],
+  "amountMode": "none",
+  "timeDependent": false,
+  "sizeRule": "pad",
+  "params": [
+    {"key": "rect", "label": "余白", "type": "rect", "min": 0, "max": 3000, "default": {"l": 0, "t": 0, "r": 0, "b": 0}, "step": 1, "unit": "‰"},
+    {"key": "fill", "label": "塗り", "type": "color", "default": "#00000000"}
+  ],
+  "passes": []
+}

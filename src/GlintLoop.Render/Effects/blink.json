@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "id": "blink",
+  "name": "ピカピカ",
+  "stage": "motion",
+  "group": "色と光",
+  "keywords": ["blink", "flash", "点滅", "ピカピカ"],
+  "amountMode": "scale",
+  "scaleParams": ["depth"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "mode", "label": "効き方", "type": "enum", "default": "opacity",
+     "options": [{"value": "opacity", "label": "不透明度"}, {"value": "dark", "label": "暗くする"}, {"value": "flash", "label": "白く光る"}]},
+    {"key": "shape", "label": "変わり方", "type": "enum", "default": "square",
+     "options": [{"value": "square", "label": "点滅"}, {"value": "sine", "label": "なめらか"}, {"value": "tri", "label": "三角"}]},
+    {"key": "duty", "label": "表示の割合", "type": "float", "min": 10, "max": 90, "default": 50, "unit": "%",
+     "visibleWhen": {"shape": ["square"]}},
+    {"key": "depth", "label": "深さ", "type": "float", "min": 0, "max": 100, "default": 100, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "blink", "inputs": ["src"], "scale": 1,
+     "bind": {"mode": "mode", "shape": "shape", "duty": "duty", "depth": "depth", "t": "$t", "cycles": "$cycles", "phase": "$phase"}}
+  ]
+}

@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>GlintLoop.Render</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="GlintLoop.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Vortice.Direct3D11" Version="3.8.3" />
+    <PackageReference Include="Vortice.DXGI" Version="3.8.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GlintLoop.Core\GlintLoop.Core.csproj" />
+  </ItemGroup>
+
+  <!--
+    HLSL はビルド時に DXBC へコンパイルし、埋め込みリソースとして入れる(仕様書 D-7・INV-3)。
+    コンパイラは tools/ShaderCompiler(ProjectReference にしない。コンパイラのパッケージをこのアセンブリの依存に入れないため)。
+    出力の .cso は obj の下に置き、リポジトリには入れない。
+  -->
+  <PropertyGroup>
+    <ShaderCompilerProject>$(MSBuildThisFileDirectory)..\..\tools\ShaderCompiler\ShaderCompiler.csproj</ShaderCompilerProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <HlslSource Include="Shaders\*.hlsl" />
+    <None Remove="Shaders\*.hlsl" />
+    <!-- 共通のインクルード(例 common.hlsli)。コンパイルの入力には渡さず、変わったときに全部を作り直すための依存にだけ使う -->
+    <HlslInclude Include="Shaders\*.hlsli" />
+    <None Remove="Shaders\*.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- EffectDef の JSON(仕様書 §9.2)。埋め込みリソースとしてだけ読む(INV-3)。名前は GlintLoop.Render.Effects.<id>.json -->
+    <EmbeddedResource Include="Effects\*.json" LogicalName="GlintLoop.Render.Effects.%(Filename)%(Extension)" WithCulture="false" />
+    <None Remove="Effects\*.json" />
+  </ItemGroup>
+
+  <Target Name="GlintBuildShaderCompiler" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <!-- IntermediateOutputPath は SDK の targets で決まるので、評価の後(ターゲットの中)で組み立てる -->
+      <ShaderOutputDir>$(MSBuildProjectDirectory)\$(IntermediateOutputPath)shaders\</ShaderOutputDir>
+    </PropertyGroup>
+    <!--
+      MSBuild タスクは呼び出し元の大域プロパティを引き継ぐ。publish の _IsPublishing と PublishSingleFile がツール(Exe)に流れると、
+      SDK が RID を推し量って(UseCurrentRuntimeIdentifier)win-x64 で評価し、ソリューションの復元(RID なし)の
+      project.assets.json と合わずに NETSDK1047 で止まる(RuntimeIdentifier と SelfContained も、流れれば同じく RID 付きにする)。
+      ツールは publish の指定と関係なく同じ形で作るので、publish の旗をここで外す
+    -->
+    <PropertyGroup>
+      <GlintShaderToolRemovedProperties>_IsPublishing;RuntimeIdentifier;SelfContained;PublishSingleFile;EnableCompressionInSingleFile;DebugType;DebugSymbols</GlintShaderToolRemovedProperties>
+    </PropertyGroup>
+    <!-- テストのプロジェクトだけを dotnet run したときは、ソリューションの復元にツールが含まれないので、ここで復元する -->
+    <MSBuild Projects="$(ShaderCompilerProject)" Targets="Restore"
+             Properties="Configuration=$(Configuration);GlintShaderToolRestore=true"
+             RemoveProperties="$(GlintShaderToolRemovedProperties)"
+             Condition="!Exists('$(MSBuildThisFileDirectory)..\..\tools\ShaderCompiler\obj\project.assets.json')" />
+    <MSBuild Projects="$(ShaderCompilerProject)" Targets="Build" Properties="Configuration=$(Configuration)"
+             RemoveProperties="$(GlintShaderToolRemovedProperties)">
+      <Output TaskParameter="TargetOutputs" PropertyName="ShaderCompilerDll" />
+    </MSBuild>
+  </Target>
+
+  <Target Name="GlintCompileShaders" AfterTargets="GlintBuildShaderCompiler" BeforeTargets="BeforeBuild"
+          Inputs="@(HlslSource);@(HlslInclude);$(ShaderCompilerDll)"
+          Outputs="@(HlslSource->'$(ShaderOutputDir)%(Filename).cso')">
+    <Exec Command="dotnet exec &quot;$(ShaderCompilerDll)&quot; &quot;$(ShaderOutputDir.TrimEnd('\'))&quot; @(HlslSource->'&quot;%(FullPath)&quot;', ' ')" />
+  </Target>
+
+  <Target Name="GlintEmbedShaders" AfterTargets="GlintCompileShaders" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <EmbeddedResource Include="@(HlslSource->'$(ShaderOutputDir)%(Filename).cso')"
+                        LogicalName="GlintLoop.Render.Shaders.%(Filename).cso"
+                        WithCulture="false" Type="Non-Resx" />
+    </ItemGroup>
+  </Target>
+</Project>

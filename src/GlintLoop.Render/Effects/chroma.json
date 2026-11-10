@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "chroma",
+  "name": "色抜き",
+  "stage": "shape",
+  "group": "輪郭",
+  "keywords": ["chroma", "key", "クロマキー", "グリーンバック", "despill"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "key", "label": "抜く色", "type": "color", "default": "#00FF00FF"},
+    {"key": "tol", "label": "許容", "type": "float", "min": 0, "max": 100, "default": 30, "step": 1, "unit": "%"},
+    {"key": "soft", "label": "なめらかさ", "type": "float", "min": 0, "max": 100, "default": 20, "step": 1, "unit": "%"},
+    {"key": "despill", "label": "色かぶりの除去", "type": "float", "min": 0, "max": 100, "default": 50, "step": 1, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "chroma", "inputs": ["src"], "scale": 1,
+     "bind": {"key": "key", "tol": "tol", "soft": "soft", "despill": "despill"}}
+  ]
+}

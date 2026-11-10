@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <!-- 版の出所はここ 1 か所だけ(仕様書 §0) -->
+    <Version>0.6.0</Version>
+    <Nullable>enable</Nullable>
+    <!-- 暗黙の using は使わず、下の一覧だけを読み込む(SDK の既定にはネットワークの名前空間が入るため。INV-1) -->
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+    <Company>GlintLoop</Company>
+    <Product>GlintLoop</Product>
+    <SatelliteResourceLanguages>ja</SatelliteResourceLanguages>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Threading" />
+    <Using Include="System.Threading.Tasks" />
+    <!-- WPF のプロジェクトは System.Windows.Shapes.Path とぶつかるので入れない(SDK の既定と同じ) -->
+    <Using Include="System.IO" Condition="'$(UseWPF)' != 'true'" />
+  </ItemGroup>
+</Project>

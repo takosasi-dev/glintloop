@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "crossproc",
+  "name": "クロスプロセス",
+  "stage": "look",
+  "group": "表現",
+  "keywords": ["クロス現像", "crossproc", "cross", "フィルム"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [],
+  "passes": [
+    {"id": "main", "shader": "crossproc", "inputs": ["src"], "scale": 1}
+  ]
+}

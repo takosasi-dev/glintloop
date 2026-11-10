@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "text",
+  "name": "テキスト",
+  "stage": "finish",
+  "group": "縁と文字",
+  "keywords": ["text", "文字", "テキスト", "font", "フォント", "caption", "字幕"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "aux": "text",
+  "params": [
+    {"key": "text", "label": "文字", "type": "text", "default": "テキスト", "maxLength": 200},
+    {"key": "font", "label": "フォント", "type": "font", "default": "Yu Gothic UI"},
+    {"key": "size", "label": "大きさ", "type": "float", "min": 10, "max": 500, "default": 100, "step": 1, "unit": "‰"},
+    {"key": "color", "label": "色", "type": "color", "default": "#FFFFFFFF"},
+    {"key": "align", "label": "揃え", "type": "enum", "default": "center",
+     "options": [{"value": "left", "label": "左"}, {"value": "center", "label": "中央"}, {"value": "right", "label": "右"}]},
+    {"key": "pos", "label": "位置", "type": "point", "default": {"x": 0.5, "y": 0.5}},
+    {"key": "rot", "label": "回転", "type": "angle", "min": -180, "max": 180, "default": 0, "step": 1, "unit": "deg"},
+    {"key": "line", "label": "行の間隔", "type": "float", "min": 80, "max": 200, "default": 120, "step": 1, "unit": "%"},
+    {"key": "stroke", "label": "線の太さ", "type": "float", "min": 0, "max": 60, "default": 0, "step": 0.1, "unit": "‰"},
+    {"key": "stroke_color", "label": "線の色", "type": "color", "default": "#000000FF"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "text", "inputs": ["src", "aux"], "scale": 1, "bind": {}}
+  ]
+}

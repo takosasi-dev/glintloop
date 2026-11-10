@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/probes/">
+    <Project Path="probes/probe-gif/probe-gif.csproj" />
+    <Project Path="probes/probe-gpu/probe-gpu.csproj" />
+    <Project Path="probes/probe-handoff/probe-handoff.csproj" />
+    <Project Path="probes/probe-skia/probe-skia.csproj" />
+    <Project Path="probes/probe-ui/probe-ui.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/GlintLoop.Codec/GlintLoop.Codec.csproj" />
+    <Project Path="src/GlintLoop.App/GlintLoop.App.csproj" />
+    <Project Path="src/GlintLoop.Core/GlintLoop.Core.csproj" />
+    <Project Path="src/GlintLoop.Render/GlintLoop.Render.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GlintLoop.Tests/GlintLoop.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/make-bluenoise/make-bluenoise.csproj" />
+    <Project Path="tools/perf-report/perf-report.csproj" />
+    <Project Path="tools/ShaderCompiler/ShaderCompiler.csproj" />
+  </Folder>
+</Solution>

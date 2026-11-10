@@ -1,0 +1,8 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+out/
+# 基準画像と測定用の画像はリポジトリに入れない(仕様書 §8.5)
+probes/**/output/

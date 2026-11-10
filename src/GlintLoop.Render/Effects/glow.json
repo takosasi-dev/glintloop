@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "id": "glow",
+  "name": "グロー",
+  "stage": "finish",
+  "group": "光",
+  "keywords": ["glow", "bloom", "発光", "にじみ"],
+  "amountMode": "scale",
+  "scaleParams": ["intensity"],
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "threshold", "label": "しきい値", "type": "float", "min": 0, "max": 100, "default": 60, "step": 1, "unit": "%"},
+    {"key": "radius", "label": "広がり", "type": "float", "min": 0, "max": 150, "default": 40, "step": 1, "unit": "‰"},
+    {"key": "intensity", "label": "光の強さ", "type": "float", "min": 0, "max": 300, "default": 80, "step": 1, "unit": "%"},
+    {"key": "color", "label": "光の色", "type": "color", "default": "#FFFFFFFF"}
+  ],
+  "passes": [
+    {"id": "bright", "shader": "glow_bright", "inputs": ["src"], "scale": 1, "bind": {"threshold": "threshold"}},
+    {"id": "h1", "shader": "blur_h", "inputs": ["pass:bright"], "scale": 1, "bind": {"radius": "radius", "shortSide": "$shortSide"}},
+    {"id": "v1", "shader": "blur_v", "inputs": ["pass:h1"], "scale": 1, "bind": {"radius": "radius", "shortSide": "$shortSide"}},
+    {"id": "h3", "shader": "glow_wide_h", "inputs": ["pass:bright"], "scale": 1, "bind": {"radius": "radius", "shortSide": "$shortSide"}},
+    {"id": "v3", "shader": "glow_wide_v", "inputs": ["pass:h3"], "scale": 1, "bind": {"radius": "radius", "shortSide": "$shortSide"}},
+    {"id": "main", "shader": "glow", "inputs": ["src", "pass:v1", "pass:v3"], "scale": 1, "bind": {"intensity": "intensity", "color": "color"}}
+  ]
+}

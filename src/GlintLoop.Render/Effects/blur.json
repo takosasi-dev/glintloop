@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "blur",
+  "name": "ぼかし",
+  "stage": "finish",
+  "group": "ぼかし",
+  "keywords": ["ガウス", "blur", "方向", "放射"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "kind", "label": "種類", "type": "enum", "default": "gaussian",
+     "options": [{"value": "gaussian", "label": "ガウス"}, {"value": "directional", "label": "方向"}]},
+    {"key": "radius", "label": "半径", "type": "float", "min": 0, "max": 100, "default": 10, "step": 0.1, "unit": "‰"},
+    {"key": "angle", "label": "角度", "type": "angle", "min": -180, "max": 180, "default": 0, "step": 1, "unit": "deg",
+     "visibleWhen": {"kind": ["directional"]}}
+  ],
+  "passes": [
+    {"id": "h", "shader": "blur_h", "inputs": ["src"], "scale": 1, "when": {"kind": ["gaussian"]}, "bind": {"radius": "radius", "shortSide": "$shortSide"}},
+    {"id": "v", "shader": "blur_v", "inputs": ["pass:h"], "scale": 1, "when": {"kind": ["gaussian"]}, "bind": {"radius": "radius", "shortSide": "$shortSide"}},
+    {"id": "dir", "shader": "blur_dir", "inputs": ["src"], "scale": 1, "when": {"kind": ["directional"]}, "bind": {"radius": "radius", "angle": "angle", "shortSide": "$shortSide"}}
+  ]
+}

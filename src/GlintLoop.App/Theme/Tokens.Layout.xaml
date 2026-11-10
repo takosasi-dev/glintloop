@@ -1,0 +1,190 @@
+<!-- 色以外のトークン(仕様書 §9.1 の余白・角丸・線・文字・モーションと、§9.3 の領域と画面の寸法)。両テーマで共通。 -->
+<!-- 画面とコードは数値を直書きせず、ここのキーを参照する(INV-14)。AC-19 の (5)(6) と AC-20 がこの辞書を読んで調べる。 -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- ===== 余白(space-1〜6)・角丸・線・当たり判定 ===== -->
+  <sys:Double x:Key="Space1">4</sys:Double>
+  <sys:Double x:Key="Space2">8</sys:Double>
+  <sys:Double x:Key="Space3">12</sys:Double>
+  <sys:Double x:Key="Space4">16</sys:Double>
+  <sys:Double x:Key="Space5">24</sys:Double>
+  <sys:Double x:Key="Space6">32</sys:Double>
+  <Thickness x:Key="Space1Thickness">4</Thickness>
+  <Thickness x:Key="Space2Thickness">8</Thickness>
+  <Thickness x:Key="Space3Thickness">12</Thickness>
+  <Thickness x:Key="Space4Thickness">16</Thickness>
+  <Thickness x:Key="Space5Thickness">24</Thickness>
+  <Thickness x:Key="Space6Thickness">32</Thickness>
+  <!-- 組み合わせの余白(どれも上の space の値だけでできている) -->
+  <Thickness x:Key="Space3HorizontalThickness">12,0</Thickness>
+  <Thickness x:Key="Space2HorizontalThickness">8,0</Thickness>
+  <Thickness x:Key="Space1HorizontalThickness">4,0</Thickness>
+  <Thickness x:Key="Space1RightThickness">0,0,4,0</Thickness>
+  <Thickness x:Key="Space1LeftThickness">4,0,0,0</Thickness>
+  <Thickness x:Key="Space2RightThickness">0,0,8,0</Thickness>
+  <Thickness x:Key="Space2BottomThickness">0,0,0,8</Thickness>
+  <Thickness x:Key="Space2TopThickness">0,8,0,0</Thickness>
+  <Thickness x:Key="Space4BottomThickness">0,0,0,16</Thickness>
+  <Thickness x:Key="Space4TopThickness">0,16,0,0</Thickness>
+  <Thickness x:Key="Space2LeftThickness">8,0,0,0</Thickness>
+  <Thickness x:Key="ToolTipPaddingThickness">8,4</Thickness>
+  <Thickness x:Key="ButtonPaddingThickness">12,0</Thickness>
+  <Thickness x:Key="InputPaddingThickness">8,0</Thickness>
+
+  <CornerRadius x:Key="RadiusControl">4</CornerRadius>
+  <CornerRadius x:Key="RadiusCard">8</CornerRadius>
+
+  <sys:Double x:Key="Stroke">1</sys:Double>
+  <Thickness x:Key="StrokeThickness">1</Thickness>
+  <!-- 選択中の枠・スライダーのつまみの縁・レイヤーの枠・タブの下線は 2 DIP の線 -->
+  <sys:Double x:Key="StrokeEmphasis">2</sys:Double>
+  <Thickness x:Key="StrokeEmphasisThickness">2</Thickness>
+  <Thickness x:Key="TabUnderlineThickness">0,0,0,2</Thickness>
+  <sys:Double x:Key="HitMin">32</sys:Double>
+
+  <!-- フォーカスの輪: 部品の外側に間隔 2 DIP・幅 2 DIP -->
+  <sys:Double x:Key="FocusRingGap">2</sys:Double>
+  <sys:Double x:Key="FocusRingWidth">2</sys:Double>
+
+  <!-- 無効の不透明度(40%)・トグルのホバーで重ねる surface-3 の不透明度(8%) -->
+  <sys:Double x:Key="DisabledOpacity">0.4</sys:Double>
+  <sys:Double x:Key="ToggleHoverOverlayOpacity">0.08</sys:Double>
+
+  <!-- ===== 部品の寸法 ===== -->
+  <sys:Double x:Key="ControlHeight">32</sys:Double>
+  <sys:Double x:Key="IconSize">16</sys:Double>
+  <sys:Double x:Key="SliderHeight">32</sys:Double>
+  <sys:Double x:Key="SliderTrackHeight">4</sys:Double>
+  <sys:Double x:Key="SliderThumbSize">16</sys:Double>
+  <sys:Double x:Key="SliderThumbHoverScale">1.25</sys:Double>
+  <sys:Double x:Key="ToggleTrackWidth">40</sys:Double>
+  <sys:Double x:Key="ToggleTrackHeight">20</sys:Double>
+  <sys:Double x:Key="ToggleKnobSize">12</sys:Double>
+  <Thickness x:Key="ToggleKnobMarginThickness">4,0</Thickness>
+  <sys:Double x:Key="ColorSwatchSize">24</sys:Double>
+  <sys:Double x:Key="ColorSwatchHit">32</sys:Double>
+  <sys:Double x:Key="ScrollBarWidth">16</sys:Double>
+  <sys:Double x:Key="DropDownArrowWidth">32</sys:Double>
+  <sys:Double x:Key="PopupMaxHeight">320</sys:Double>
+
+  <!-- ツールチップの遅延(ms。FR-102) -->
+  <sys:Int32 x:Key="ToolTipInitialDelay">500</sys:Int32>
+  <sys:Int32 x:Key="ToolTipBetweenDelay">300</sys:Int32>
+
+  <!-- ===== 文字(§9.1。14 DIP 以下は Text、20 DIP 以上は Display。日本語は Yu Gothic UI、次に Meiryo UI) ===== -->
+  <FontFamily x:Key="FontFamilyText">Segoe UI Variable Text, Segoe UI, Yu Gothic UI, Meiryo UI</FontFamily>
+  <FontFamily x:Key="FontFamilyDisplay">Segoe UI Variable Display, Segoe UI, Yu Gothic UI, Meiryo UI</FontFamily>
+  <FontFamily x:Key="FontFamilyIcon">Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
+  <sys:Double x:Key="FontSizeCaption">12</sys:Double>
+  <sys:Double x:Key="LineHeightCaption">16</sys:Double>
+  <FontWeight x:Key="FontWeightCaption">Normal</FontWeight>
+  <sys:Double x:Key="FontSizeBody">14</sys:Double>
+  <sys:Double x:Key="LineHeightBody">20</sys:Double>
+  <FontWeight x:Key="FontWeightBody">Normal</FontWeight>
+  <sys:Double x:Key="FontSizeBodyStrong">14</sys:Double>
+  <sys:Double x:Key="LineHeightBodyStrong">20</sys:Double>
+  <FontWeight x:Key="FontWeightBodyStrong">SemiBold</FontWeight>
+  <sys:Double x:Key="FontSizeSubtitle">20</sys:Double>
+  <sys:Double x:Key="LineHeightSubtitle">28</sys:Double>
+  <FontWeight x:Key="FontWeightSubtitle">SemiBold</FontWeight>
+  <sys:Double x:Key="FontSizeTitle">28</sys:Double>
+  <sys:Double x:Key="LineHeightTitle">36</sys:Double>
+  <FontWeight x:Key="FontWeightTitle">SemiBold</FontWeight>
+
+  <!-- ===== モーション(§9.1。イージングは KeySpline の 4 本だけ) ===== -->
+  <KeySpline x:Key="EaseOut">0.23,1,0.32,1</KeySpline>
+  <KeySpline x:Key="EaseInOut">0.77,0,0.175,1</KeySpline>
+  <KeySpline x:Key="EaseDrawer">0.32,0.72,0,1</KeySpline>
+  <KeySpline x:Key="EaseColor">0.25,0.1,0.25,1</KeySpline>
+  <sys:TimeSpan x:Key="MotionPressDown">0:0:0.12</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionPressUp">0:0:0.16</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionColor">0:0:0.12</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionTooltipIn">0:0:0.15</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionTooltipOut">0:0:0.1</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionFlyoutIn">0:0:0.18</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionFlyoutOut">0:0:0.12</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionDialogIn">0:0:0.2</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionDialogOut">0:0:0.14</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionNoticeIn">0:0:0.2</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionNoticeOut">0:0:0.12</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionPane">0:0:0.2</sys:TimeSpan>
+  <sys:TimeSpan x:Key="MotionThumbIn">0:0:0.15</sys:TimeSpan>
+  <!-- 押下の縮小(1.00 → 0.97)と、出現の拡大率の開始値(0.96) -->
+  <sys:Double x:Key="MotionPressScale">0.97</sys:Double>
+  <sys:Double x:Key="MotionAppearScale">0.96</sys:Double>
+  <!-- 進捗リング(ウェルカム画面)の 1 周の時間。処理中を示す連続の動きで、上の 13 行の表と規則 4・7 の対象外(規則 10)。縮小が有効なときは回さない -->
+  <sys:TimeSpan x:Key="MotionProgressRingTurn">0:0:1.2</sys:TimeSpan>
+
+  <!-- ===== §9.3 の領域の寸法(DIP) ===== -->
+  <sys:Double x:Key="WindowMinWidth">1120</sys:Double>
+  <sys:Double x:Key="WindowMinHeight">640</sys:Double>
+  <sys:Double x:Key="WindowDefaultWidth">1280</sys:Double>
+  <sys:Double x:Key="WindowDefaultHeight">800</sys:Double>
+  <sys:Double x:Key="CommandBarHeight">48</sys:Double>
+  <sys:Double x:Key="CommandBarDividerHeight">24</sys:Double>
+  <sys:Double x:Key="NoticeBarHeight">40</sys:Double>
+  <sys:Double x:Key="LeftPaneWidth">312</sys:Double>
+  <sys:Double x:Key="LeftPaneMinWidth">240</sys:Double>
+  <sys:Double x:Key="LeftPaneMaxWidth">420</sys:Double>
+  <sys:Double x:Key="RightPaneWidth">320</sys:Double>
+  <sys:Double x:Key="RightPaneMinWidth">280</sys:Double>
+  <sys:Double x:Key="RightPaneMaxWidth">480</sys:Double>
+  <sys:Double x:Key="CanvasMinWidth">448</sys:Double>
+  <sys:Double x:Key="CanvasMinHeight">240</sys:Double>
+  <!-- キャンバスの背景の市松模様の升目(FR-20・§9.1。8 DIP 四方) -->
+  <sys:Double x:Key="CanvasCheckerCell">8</sys:Double>
+  <sys:Double x:Key="TimelineHeight">56</sys:Double>
+  <sys:Double x:Key="TimelineWrappedHeight">96</sys:Double>
+  <sys:Double x:Key="ExportBandHeight">72</sys:Double>
+  <sys:Double x:Key="RightPaneHeaderHeight">32</sys:Double>
+  <sys:Double x:Key="LayerListMinHeight">128</sys:Double>
+  <sys:Double x:Key="LayerListDefaultHeight">176</sys:Double>
+  <sys:Double x:Key="StackMinHeight">160</sys:Double>
+  <sys:Double x:Key="ParamsMinHeight">160</sys:Double>
+  <sys:Double x:Key="LayerRowHeight">40</sys:Double>
+  <sys:Double x:Key="LayerRowToggle">32</sys:Double>
+  <sys:Double x:Key="LayerRowThumb">32</sys:Double>
+  <sys:Double x:Key="LayerRowDuplicate">32</sys:Double>
+  <sys:Double x:Key="LayerRowDelete">32</sys:Double>
+  <sys:Double x:Key="LayerRowNameMin">56</sys:Double>
+  <sys:Double x:Key="LayerFrameHandle">8</sys:Double>
+  <sys:Double x:Key="LayerFrameHandleHit">16</sys:Double>
+  <sys:Double x:Key="TileSize">132</sys:Double>
+  <sys:Double x:Key="TimelinePlayWidth">32</sys:Double>
+  <sys:Double x:Key="TimelineScrubMinWidth">120</sys:Double>
+  <sys:Double x:Key="TimelineLengthWidth">88</sys:Double>
+  <sys:Double x:Key="TimelineFpsWidth">80</sys:Double>
+  <sys:Double x:Key="TimelineLoopWidth">88</sys:Double>
+  <sys:Double x:Key="TimelineHoldWidth">104</sys:Double>
+  <sys:Double x:Key="TimelineReseedWidth">32</sys:Double>
+  <sys:Double x:Key="ExportFormatWidth">96</sys:Double>
+  <sys:Double x:Key="ExportOptionsSize">32</sys:Double>
+  <sys:Double x:Key="ExportSizeWidth">160</sys:Double>
+  <sys:Double x:Key="ExportLimitWidth">200</sys:Double>
+  <sys:Double x:Key="ExportStatusMinWidth">160</sys:Double>
+  <sys:Double x:Key="ExportCopyMinWidth">96</sys:Double>
+  <sys:Double x:Key="ExportSaveMinWidth">80</sys:Double>
+  <sys:Double x:Key="DragAreaWidth">64</sys:Double>
+  <sys:Double x:Key="DragAreaHeight">48</sys:Double>
+  <sys:Double x:Key="OutputFlyoutWidth">320</sys:Double>
+  <!-- ダイアログは、ウィンドウの高さからこの値を引いた高さを超えると中をスクロールする -->
+  <sys:Double x:Key="DialogWindowMargin">64</sys:Double>
+
+  <!-- ===== §9.3 の画面の表のダイアログの寸法(DIP。高さの決まっていないものは幅だけ) ===== -->
+  <sys:Double x:Key="DialogSettingsWidth">520</sys:Double>
+  <sys:Double x:Key="DialogSettingsHeight">640</sys:Double>
+  <sys:Double x:Key="DialogBatchWidth">640</sys:Double>
+  <sys:Double x:Key="DialogBatchHeight">560</sys:Double>
+  <sys:Double x:Key="DialogAboutWidth">560</sys:Double>
+  <sys:Double x:Key="DialogAboutHeight">520</sys:Double>
+  <sys:Double x:Key="DialogReplaceWidth">440</sys:Double>
+  <sys:Double x:Key="DialogEmptyCanvasWidth">400</sys:Double>
+  <sys:Double x:Key="DialogConfirmOverWidth">440</sys:Double>
+  <sys:Double x:Key="DialogErrorWidth">480</sys:Double>
+  <sys:Double x:Key="DialogShortcutsWidth">560</sys:Double>
+  <sys:Double x:Key="DialogShortcutsHeight">600</sys:Double>
+  <sys:Double x:Key="DialogNameWidth">400</sys:Double>
+  <sys:Double x:Key="DialogOverwriteWidth">440</sys:Double>
+</ResourceDictionary>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- WPF の窓を出しつつ、結果を標準出力に出すため Exe にする -->
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>GlintLoop.Probes.Ui</RootNamespace>
+    <!-- DPI はモニターごと(Per-Monitor V2) -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GlintLoop.Core\GlintLoop.Core.csproj" />
+  </ItemGroup>
+</Project>

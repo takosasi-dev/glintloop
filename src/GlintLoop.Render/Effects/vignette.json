@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "vignette",
+  "name": "周辺光量",
+  "stage": "finish",
+  "group": "光",
+  "keywords": ["vignette", "周辺減光", "ビネット", "四隅"],
+  "amountMode": "scale",
+  "scaleParams": ["strength"],
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "strength", "label": "濃さ", "type": "float", "min": 0, "max": 100, "default": 40, "step": 1, "unit": "%"},
+    {"key": "size", "label": "大きさ", "type": "float", "min": 0, "max": 100, "default": 50, "step": 1, "unit": "%"},
+    {"key": "soft", "label": "やわらかさ", "type": "float", "min": 0, "max": 100, "default": 60, "step": 1, "unit": "%"},
+    {"key": "round", "label": "丸さ", "type": "float", "min": 0, "max": 100, "default": 0, "step": 1, "unit": "%"},
+    {"key": "color", "label": "色", "type": "color", "default": "#000000FF"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "vignette", "inputs": ["src"], "scale": 1,
+     "bind": {"strength": "strength", "size": "size", "soft": "soft", "round": "round", "color": "color", "texel": "$texel"}}
+  ]
+}

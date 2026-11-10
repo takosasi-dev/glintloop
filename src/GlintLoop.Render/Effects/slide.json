@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "slide",
+  "name": "流れる",
+  "stage": "motion",
+  "group": "動き",
+  "keywords": ["slide", "scroll", "流れる", "スクロール"],
+  "amountMode": "none",
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "dir", "label": "向き", "type": "enum", "default": "left",
+     "options": [{"value": "left", "label": "左へ"}, {"value": "right", "label": "右へ"}, {"value": "up", "label": "上へ"}, {"value": "down", "label": "下へ"}]}
+  ],
+  "passes": [
+    {"id": "main", "shader": "slide", "inputs": ["src"], "scale": 1,
+     "bind": {"dir": "dir", "t": "$t", "cycles": "$cycles", "phase": "$phase", "frame": "$frame"}}
+  ]
+}

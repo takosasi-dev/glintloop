@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "id": "particles",
+  "name": "粒子",
+  "stage": "motion",
+  "group": "粒",
+  "keywords": ["particles", "snow", "confetti", "粒子", "雪", "紙吹雪", "泡"],
+  "amountMode": "scale",
+  "scaleParams": ["opacity"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "kind", "label": "粒の形", "type": "enum", "default": "snow",
+     "options": [{"value": "snow", "label": "雪"}, {"value": "dots", "label": "丸"}, {"value": "bubbles", "label": "泡"}, {"value": "stars", "label": "星"}, {"value": "confetti", "label": "紙吹雪"}]},
+    {"key": "dir", "label": "向き", "type": "enum", "default": "down",
+     "options": [{"value": "down", "label": "下へ"}, {"value": "up", "label": "上へ"}]},
+    {"key": "count", "label": "粒の数", "type": "int", "min": 5, "max": 120, "default": 40},
+    {"key": "size", "label": "粒の大きさ", "type": "float", "min": 5, "max": 60, "default": 18, "step": 1, "unit": "‰"},
+    {"key": "tone", "label": "色", "type": "enum", "default": "white",
+     "options": [{"value": "white", "label": "白"}, {"value": "rainbow", "label": "カラフル"}, {"value": "custom", "label": "指定色"}]},
+    {"key": "color", "label": "粒の色", "type": "color", "default": "#FFFFFFFF", "visibleWhen": {"tone": ["custom"]}},
+    {"key": "opacity", "label": "不透明度", "type": "float", "min": 0, "max": 100, "default": 85, "step": 1, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "particles", "inputs": ["src"], "scale": 1,
+     "bind": {"kind": "kind", "dir": "dir", "count": "count", "size": "size", "tone": "tone", "color": "color", "opacity": "opacity", "t": "$t", "cycles": "$cycles", "phase": "$phase", "seed": "$seed", "salt": "$salt", "frame": "$frame"}}
+  ]
+}

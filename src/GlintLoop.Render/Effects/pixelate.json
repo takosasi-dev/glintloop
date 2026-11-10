@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "pixelate",
+  "name": "モザイク",
+  "stage": "look",
+  "group": "表現",
+  "keywords": ["ピクセル", "升目", "pixelate", "mosaic", "ドット"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "size", "label": "升目の大きさ", "type": "float", "min": 5, "max": 200, "default": 30, "unit": "‰"}
+  ],
+  "passes": [
+    {"id": "h", "shader": "pixelate_h", "inputs": ["src"], "scale": 1, "bind": {"size": "size", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "v", "shader": "pixelate_v", "inputs": ["pass:h"], "scale": 1, "bind": {"size": "size", "shortSide": "$shortSide", "texel": "$texel"}}
+  ]
+}

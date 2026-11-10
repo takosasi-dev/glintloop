@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "crop",
+  "name": "切り抜き",
+  "stage": "shape",
+  "group": "寸法",
+  "keywords": ["切り抜き", "crop", "トリミング", "aspect"],
+  "amountMode": "none",
+  "timeDependent": false,
+  "sizeRule": "crop",
+  "params": [
+    {"key": "rect", "label": "切り抜き", "type": "rect", "min": 0, "max": 900, "default": {"l": 0, "t": 0, "r": 0, "b": 0}, "step": 1, "unit": "‰辺"},
+    {"key": "aspect", "label": "比", "type": "enum", "default": "free",
+     "options": [
+       {"value": "free", "label": "自由"}, {"value": "orig", "label": "元の比"},
+       {"value": "1_1", "label": "1:1"}, {"value": "4_3", "label": "4:3"}, {"value": "3_2", "label": "3:2"},
+       {"value": "16_9", "label": "16:9"}, {"value": "9_16", "label": "9:16"}, {"value": "3_4", "label": "3:4"},
+       {"value": "2_3", "label": "2:3"}]}
+  ],
+  "passes": []
+}

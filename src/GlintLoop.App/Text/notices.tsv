@@ -1,0 +1,40 @@
+paste.empty	warn	クリップボードに画像がありません
+import.multi	info	{N} 個のうち {M} 個を取り込みました
+import.web_url	warn	画像のデータがありません。ブラウザで画像をコピーして、貼り付けてください
+import.unsupported	error	この形式には対応していません(PNG・JPEG・WebP・BMP・ICO・GIF)
+import.animated	info	アニメーションの 1 枚目だけを使っています
+import.too_large_file	error	ファイルが大きすぎます({size} MB。上限は 100 MB)
+import.too_large_side	error	画像の縦または横が大きすぎます({w}×{h} px。上限は 16384 px)
+import.too_many_pixels	error	画素数が多すぎます({mp} メガピクセル。上限は 64 メガピクセル)
+import.decode_error	error	画像を読み込めませんでした。ファイルが壊れている可能性があります
+import.read_error	error	ファイルを開けませんでした
+import.gpu_shrunk	info	GPU の上限のため縮小して取り込みました
+layer.added	info	レイヤーとして追加しました
+layer.full	warn	レイヤーは 32 枚までです
+layer.budget	warn	画像の合計が大きすぎます(上限は 300 MB または 100 メガピクセル)
+layer.render_shrunk	info	大きいレイヤーは、縮小して重ねました
+stack.full	warn	エフェクトは 64 個までです
+batch.full	warn	バッチは 200 個までです
+batch.layers_ignored	常時表示	いちばん下のレイヤーと全体のスタックだけを適用します。ほかのレイヤーは使いません
+stack.unknown_effect	warn	未対応のエフェクトを外しました
+font.missing	warn	フォントが見つからないため置き換えました
+copy.done	info	コピーしました({size})
+save.done	info	保存しました
+save.failed	error	保存できませんでした。保存先を変えて試してください
+clip.failed	error	クリップボードを使えませんでした。もう一度試してください
+export.size_fail	warn	上限({limit} バイト)に収まりませんでした。最小の設定で {size} バイトです
+export.confirm_over	ダイアログ	上限を超えています。それでも渡しますか(ボタン:渡す、やめる。既定は「やめる」)
+export.drag_again	info	もう一度ドラッグすると渡します
+export.gif_too_big	error	{fmt} が大きすぎます。サイズかフレーム数を減らしてください
+export.failed	error	書き出せませんでした。もう一度試してください
+export.condition	warn	条件:{内容}を満たしていません
+render.failed	error	表示を更新できませんでした。もう一度試してください
+gpu.software	warn	ソフトウェア描画で動いています(遅くなります)
+settings.save_failed	error	設定を保存できません
+project.saved	info	プロジェクトには元の画像の情報(撮影場所を含むことがあります)が入っています。人に渡すときは書き出したファイルを使ってください
+project.too_new	error	新しい版のファイルです。このソフトでは開けません
+project.invalid	error	プロジェクトを開けませんでした。ファイルが壊れています
+replace.confirm	ダイアログ	現在の編集内容を置き換えますか(ボタン:保存して置き換え、保存せず置き換え、キャンセル。既定は「キャンセル」)
+name.overwrite	ダイアログ	同じ名前のものがあります。上書きしますか(ボタン:上書き、キャンセル。既定は「キャンセル」)
+crash.title	ダイアログ	エラーが起きました(本文に退避した場所を表示し、ボタンは「終了」)
+crash.nosave	ダイアログ	編集内容を退避できませんでした(退避した場所の代わりに、本文にこの文言を表示する)

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "contrast",
+  "name": "コントラスト",
+  "stage": "look",
+  "group": "基本",
+  "keywords": ["コントラスト", "contrast", "メリハリ"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "c", "label": "コントラスト", "type": "float", "min": -100, "max": 100, "default": 0, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "contrast", "inputs": ["src"], "scale": 1, "bind": {"c": "c", "amount": "$amount"}}
+  ]
+}

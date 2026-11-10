@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "glitch",
+  "name": "グリッチ",
+  "stage": "motion",
+  "group": "乱れ",
+  "keywords": ["glitch", "noise", "グリッチ", "乱れ", "ずれ"],
+  "amountMode": "scale",
+  "scaleParams": ["intensity"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "intensity", "label": "乱れの強さ", "type": "float", "min": 0, "max": 100, "default": 50, "step": 1, "unit": "%"},
+    {"key": "steps", "label": "切り替えの回数", "type": "int", "min": 2, "max": 24, "default": 10},
+    {"key": "bands", "label": "帯の数", "type": "int", "min": 1, "max": 8, "default": 4},
+    {"key": "rgb", "label": "色のずれ", "type": "float", "min": 0, "max": 100, "default": 50, "step": 1, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "glitch", "inputs": ["src"], "scale": 1,
+     "bind": {"intensity": "intensity", "steps": "steps", "bands": "bands", "rgb": "rgb", "t": "$t", "cycles": "$cycles", "phase": "$phase", "seed": "$seed", "salt": "$salt", "frame": "$frame"}}
+  ]
+}

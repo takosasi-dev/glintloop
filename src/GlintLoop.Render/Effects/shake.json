@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "id": "shake",
+  "name": "ブルブル",
+  "stage": "motion",
+  "group": "動き",
+  "keywords": ["shake", "jitter", "ブルブル", "震える", "揺れ"],
+  "amountMode": "scale",
+  "scaleParams": ["amp", "rot"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "amp", "label": "振れ幅", "type": "float", "min": 0, "max": 100, "default": 15, "step": 1, "unit": "‰"},
+    {"key": "rot", "label": "回転", "type": "float", "min": 0, "max": 20, "default": 3, "step": 0.1, "unit": "deg"},
+    {"key": "rate", "label": "速さ", "type": "int", "min": 2, "max": 24, "default": 8},
+    {"key": "smooth", "label": "なめらか", "type": "bool", "default": false}
+  ],
+  "passes": [
+    {"id": "main", "shader": "shake", "inputs": ["src"], "scale": 1,
+     "bind": {"amp": "amp", "rot": "rot", "rate": "rate", "smooth": "smooth", "t": "$t", "cycles": "$cycles", "phase": "$phase",
+              "seed": "$seed", "salt": "$salt", "frame": "$frame"}}
+  ]
+}

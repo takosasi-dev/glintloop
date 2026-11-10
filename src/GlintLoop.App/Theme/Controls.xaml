@@ -1,0 +1,584 @@
+<!-- §9.1 の部品の状態の表の 13 種類の部品のスタイルとテンプレート(通常・ホバー・押下・フォーカス・無効)。色はすべてトークンのブラシのキーから取る。 -->
+<!-- 色の変化は Fx.Fill・Fx.Stroke・Fx.Text(120 ms の color)、押下は Fx.Press、フォーカスの輪は FocusRing で描く。表に無い部品(スクロールバーなど)は Fluent のまま。 -->
+<!-- キー: PrimaryButton・(暗黙)Button=副ボタン・(暗黙)ComboBox・IconButton・IconToggleButton・(暗黙)Slider・ToggleSwitch・(暗黙)CheckBox・Segmented と SegmentedItem・(暗黙)TextBox・ColorSwatch・TileItem・RowItem・(暗黙)TabItem。 -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:t="clr-namespace:GlintLoop.App.Theme"
+                    xmlns:c="clr-namespace:GlintLoop.App.Controls">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="pack://application:,,,/GlintLoop;component/Theme/Tokens.Layout.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!-- ===== 一覧に無いアイコン(16 単位の四角に描く) ===== -->
+  <Geometry x:Key="IconDuplicateGeometry">F0 M5,1 L15,1 L15,11 L13,11 L13,3 L5,3 Z M1,5 L11,5 L11,15 L1,15 Z M3,7 L3,13 L9,13 L9,7 Z</Geometry>
+  <Geometry x:Key="IconSplitGeometry">F0 M1,2 L15,2 L15,14 L1,14 Z M3,4 L3,12 L7,12 L7,4 Z M9,4 L9,12 L13,12 L13,4 Z</Geometry>
+
+  <!-- ===== 文字のスタイル(caption・body・body-strong・subtitle・title) ===== -->
+  <Style x:Key="TextCaption" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource FontFamilyText}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeCaption}" />
+    <Setter Property="LineHeight" Value="{StaticResource LineHeightCaption}" />
+    <Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
+    <Setter Property="FontWeight" Value="{StaticResource FontWeightCaption}" />
+  </Style>
+  <Style x:Key="TextBody" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource FontFamilyText}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeBody}" />
+    <Setter Property="LineHeight" Value="{StaticResource LineHeightBody}" />
+    <Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
+    <Setter Property="FontWeight" Value="{StaticResource FontWeightBody}" />
+  </Style>
+  <Style x:Key="TextBodyStrong" TargetType="TextBlock" BasedOn="{StaticResource TextBody}">
+    <Setter Property="FontSize" Value="{StaticResource FontSizeBodyStrong}" />
+    <Setter Property="LineHeight" Value="{StaticResource LineHeightBodyStrong}" />
+    <Setter Property="FontWeight" Value="{StaticResource FontWeightBodyStrong}" />
+  </Style>
+  <Style x:Key="TextSubtitle" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource FontFamilyDisplay}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeSubtitle}" />
+    <Setter Property="LineHeight" Value="{StaticResource LineHeightSubtitle}" />
+    <Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
+    <Setter Property="FontWeight" Value="{StaticResource FontWeightSubtitle}" />
+  </Style>
+  <Style x:Key="TextTitle" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource FontFamilyDisplay}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeTitle}" />
+    <Setter Property="LineHeight" Value="{StaticResource LineHeightTitle}" />
+    <Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
+    <Setter Property="FontWeight" Value="{StaticResource FontWeightTitle}" />
+  </Style>
+
+  <!-- ===== 共通の土台(フォーカスの輪は自前。WPF の FocusVisualStyle は使わない) ===== -->
+  <Style x:Key="GlintControlBase" TargetType="Control">
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="t:FocusRing.IsEnabled" Value="True" />
+    <Setter Property="FontFamily" Value="{StaticResource FontFamilyText}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeBody}" />
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+  </Style>
+
+  <!-- ===== 1. 主ボタン(コピー) ===== -->
+  <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource GlintControlBase}">
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="Padding" Value="{StaticResource ButtonPaddingThickness}" />
+    <Setter Property="FontWeight" Value="{StaticResource FontWeightBodyStrong}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border x:Name="Root" t:Fx.Fill="AccentBrush" t:Fx.Press="True" CornerRadius="{StaticResource RadiusControl}"
+                  Padding="{TemplateBinding Padding}">
+            <ContentPresenter t:Fx.Text="OnAccentBrush" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Fill" Value="AccentHoverBrush" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Fill" Value="AccentPressedBrush" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+              <Setter TargetName="Root" Property="t:Fx.Press" Value="False" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- ===== 2. 副ボタン(暗黙の Button) ===== -->
+  <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource GlintControlBase}">
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="Padding" Value="{StaticResource ButtonPaddingThickness}" />
+    <Setter Property="FontWeight" Value="{StaticResource FontWeightBodyStrong}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border x:Name="Root" t:Fx.Fill="Surface2Brush" t:Fx.Stroke="BorderStrongBrush" t:Fx.Press="True"
+                  BorderThickness="{StaticResource StrokeThickness}" CornerRadius="{StaticResource RadiusControl}" Padding="{TemplateBinding Padding}">
+            <ContentPresenter t:Fx.Text="TextPrimaryBrush" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Fill" Value="Surface3Brush" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Fill" Value="Surface2Brush" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="Button" BasedOn="{StaticResource SecondaryButton}" />
+
+  <!-- ===== 2'. ドロップダウン(閉じた状態は副ボタンの見た目に、右端の下向きの矢印。開いた側は面 surface-1 の箱) ===== -->
+  <Style x:Key="DropDownToggle" TargetType="ToggleButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
+          <Border x:Name="Root" t:Fx.Fill="Surface2Brush" t:Fx.Stroke="BorderStrongBrush" t:Fx.Press="True"
+                  BorderThickness="{StaticResource StrokeThickness}" CornerRadius="{StaticResource RadiusControl}">
+            <TextBlock x:Name="Arrow" t:Fx.Text="TextPrimaryBrush" Text="&#xE70D;" HorizontalAlignment="Right" VerticalAlignment="Center"
+                       Width="{StaticResource DropDownArrowWidth}" TextAlignment="Center"
+                       FontFamily="{StaticResource FontFamilyIcon}" FontSize="{StaticResource FontSizeCaption}" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Fill" Value="Surface3Brush" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Fill" Value="Surface2Brush" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="ComboBox" BasedOn="{StaticResource GlintControlBase}">
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="Padding" Value="{StaticResource ButtonPaddingThickness}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ComboBox">
+          <Grid x:Name="Root">
+            <ToggleButton x:Name="Toggle" Style="{StaticResource DropDownToggle}" ClickMode="Press"
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+            <ContentPresenter x:Name="ContentSite" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" t:Fx.Text="TextPrimaryBrush"
+                              Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                              ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                              HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <Popup x:Name="PART_Popup" Placement="Bottom" AllowsTransparency="True" Focusable="False" PopupAnimation="None"
+                   IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}">
+              <Border MinWidth="{Binding ActualWidth, ElementName=Root}" MaxHeight="{StaticResource PopupMaxHeight}"
+                      Background="{DynamicResource Surface1Brush}" BorderBrush="{DynamicResource BorderStrongBrush}"
+                      BorderThickness="{StaticResource StrokeThickness}" CornerRadius="{StaticResource RadiusCard}" Padding="{StaticResource Space1Thickness}">
+                <ScrollViewer>
+                  <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" TextElement.Foreground="{DynamicResource TextPrimaryBrush}" />
+                </ScrollViewer>
+              </Border>
+            </Popup>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- ===== 3. アイコンボタン(当たり判定 32×32、グリフ 16) ===== -->
+  <!-- 中身のアイコン(Icons.Create)はボタンの論理の子で、文字色をボタンから継ぐ。そこで文字色はテンプレートの中でなくボタン自身に付ける(Fx.Text とオンのトリガーをスタイルに置く) -->
+  <Style x:Key="IconButton" TargetType="ButtonBase" BasedOn="{StaticResource GlintControlBase}">
+    <Setter Property="Width" Value="{StaticResource HitMin}" />
+    <Setter Property="Height" Value="{StaticResource HitMin}" />
+    <Setter Property="ToolTipService.InitialShowDelay" Value="{StaticResource ToolTipInitialDelay}" />
+    <Setter Property="ToolTipService.BetweenShowDelay" Value="{StaticResource ToolTipBetweenDelay}" />
+    <Setter Property="t:Fx.Text" Value="TextPrimaryBrush" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ButtonBase">
+          <Border x:Name="Root" t:Fx.Fill="" t:Fx.Press="True" Background="Transparent" CornerRadius="{StaticResource RadiusControl}">
+            <ContentPresenter x:Name="Glyph" HorizontalAlignment="Center" VerticalAlignment="Center" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Fill" Value="Surface3Brush" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Fill" Value="Surface2Brush" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Property="ToggleButton.IsChecked" Value="True">
+        <Setter Property="t:Fx.Text" Value="AccentTextBrush" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="IconToggleButton" TargetType="ToggleButton" BasedOn="{StaticResource IconButton}" />
+
+  <!-- ===== 4. スライダー(高さ 32 の四角。溝 surface-3、塗り accent、つまみ 16 の円で縁 surface-1 の 2 DIP) ===== -->
+  <Style x:Key="SliderFillRepeat" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="RepeatButton">
+          <Grid Background="Transparent">
+            <Border x:Name="Fill" Height="{StaticResource SliderTrackHeight}" VerticalAlignment="Center" t:Fx.Fill="AccentBrush" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="SliderEmptyRepeat" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="RepeatButton">
+          <Grid Background="Transparent" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="SliderThumb" TargetType="Thumb">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Width" Value="{StaticResource SliderThumbSize}" />
+    <Setter Property="Height" Value="{StaticResource SliderThumbSize}" />
+    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Thumb">
+          <Ellipse x:Name="Knob" t:Fx.Fill="AccentBrush" t:Fx.Stroke="Surface1Brush" StrokeThickness="{StaticResource StrokeEmphasis}" />
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsDragging" Value="True">
+              <Setter TargetName="Knob" Property="t:Fx.Fill" Value="AccentPressedBrush" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="Slider" BasedOn="{StaticResource GlintControlBase}">
+    <Setter Property="Height" Value="{StaticResource SliderHeight}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="IsMoveToPointEnabled" Value="True" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Slider">
+          <Grid x:Name="Root" Background="Transparent">
+            <Border x:Name="Groove" Height="{StaticResource SliderTrackHeight}" VerticalAlignment="Center" t:Fx.Fill="Surface3Brush" />
+            <Track x:Name="PART_Track">
+              <Track.DecreaseRepeatButton>
+                <RepeatButton x:Name="FillPart" Style="{StaticResource SliderFillRepeat}" Command="{x:Static Slider.DecreaseLarge}" />
+              </Track.DecreaseRepeatButton>
+              <Track.IncreaseRepeatButton>
+                <RepeatButton Style="{StaticResource SliderEmptyRepeat}" Command="{x:Static Slider.IncreaseLarge}" />
+              </Track.IncreaseRepeatButton>
+              <Track.Thumb>
+                <Thumb x:Name="Thumb" Style="{StaticResource SliderThumb}" />
+              </Track.Thumb>
+            </Track>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Thumb" Property="RenderTransform">
+                <Setter.Value>
+                  <ScaleTransform ScaleX="{StaticResource SliderThumbHoverScale}" ScaleY="{StaticResource SliderThumbHoverScale}" />
+                </Setter.Value>
+              </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Groove" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+              <Setter TargetName="FillPart" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- ===== 5. トグル(オフは枠 border-strong、オンは塗り accent。ホバーは surface-3 を 8% 重ねる) ===== -->
+  <Style x:Key="ToggleSwitch" TargetType="ToggleButton" BasedOn="{StaticResource GlintControlBase}">
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
+          <StackPanel x:Name="Root" Orientation="Horizontal" Background="Transparent">
+            <Grid x:Name="Switch" Width="{StaticResource ToggleTrackWidth}" Height="{StaticResource ToggleTrackHeight}" VerticalAlignment="Center" t:Fx.Press="True">
+              <Border x:Name="Track" t:Fx.Fill="" t:Fx.Stroke="BorderStrongBrush" BorderThickness="{StaticResource StrokeThickness}" CornerRadius="{StaticResource RadiusControl}" />
+              <Border x:Name="Hover" Background="{DynamicResource Surface3Brush}" Opacity="{StaticResource ToggleHoverOverlayOpacity}"
+                      CornerRadius="{StaticResource RadiusControl}" Visibility="Collapsed" />
+              <Ellipse x:Name="Knob" Width="{StaticResource ToggleKnobSize}" Height="{StaticResource ToggleKnobSize}" HorizontalAlignment="Left"
+                       Margin="{StaticResource ToggleKnobMarginThickness}" t:Fx.Fill="TextSecondaryBrush" />
+            </Grid>
+            <ContentPresenter Margin="{StaticResource Space2LeftThickness}" VerticalAlignment="Center" t:Fx.Text="TextPrimaryBrush" />
+          </StackPanel>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter TargetName="Track" Property="t:Fx.Fill" Value="AccentBrush" />
+              <Setter TargetName="Track" Property="t:Fx.Stroke" Value="AccentBrush" />
+              <Setter TargetName="Knob" Property="t:Fx.Fill" Value="OnAccentBrush" />
+              <Setter TargetName="Knob" Property="HorizontalAlignment" Value="Right" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Hover" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="CheckBox" BasedOn="{StaticResource ToggleSwitch}" />
+
+  <!-- ===== 6. 横並びの切替ボタン(ListBox。各項目は副ボタンの見た目、選んでいる項目は枠 accent の 2 DIP と塗り surface-3。輪は全体の外側) ===== -->
+  <Style x:Key="SegmentedItem" TargetType="ListBoxItem">
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="Padding" Value="{StaticResource ButtonPaddingThickness}" />
+    <Setter Property="Margin" Value="{StaticResource Space1RightThickness}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ListBoxItem">
+          <Grid x:Name="Root" t:Fx.Press="True">
+            <Border x:Name="Face" t:Fx.Fill="Surface2Brush" t:Fx.Stroke="BorderStrongBrush" BorderThickness="{StaticResource StrokeThickness}"
+                    CornerRadius="{StaticResource RadiusControl}" Padding="{TemplateBinding Padding}">
+              <ContentPresenter t:Fx.Text="TextPrimaryBrush" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <Border x:Name="Selection" t:Fx.Stroke="" BorderThickness="{StaticResource StrokeEmphasisThickness}" CornerRadius="{StaticResource RadiusControl}" />
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Face" Property="t:Fx.Fill" Value="Surface3Brush" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter TargetName="Face" Property="t:Fx.Fill" Value="Surface3Brush" />
+              <Setter TargetName="Selection" Property="t:Fx.Stroke" Value="AccentBrush" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="Segmented" TargetType="ListBox">
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="t:FocusRing.Within" Value="True" />
+    <Setter Property="ItemContainerStyle" Value="{StaticResource SegmentedItem}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ListBox">
+          <ItemsPresenter x:Name="Root" />
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- ===== 7. テキスト入力・数値入力(押下の見た目を持たない。フォーカスで枠 accent と輪) ===== -->
+  <Style TargetType="TextBox" BasedOn="{StaticResource GlintControlBase}">
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="Padding" Value="{StaticResource InputPaddingThickness}" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource AccentBrush}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TextBox">
+          <Border x:Name="Root" t:Fx.Fill="Surface2Brush" t:Fx.Stroke="BorderStrongBrush" BorderThickness="{StaticResource StrokeThickness}"
+                  CornerRadius="{StaticResource RadiusControl}">
+            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Stroke" Value="TextSecondaryBrush" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+              <Setter TargetName="Root" Property="t:Fx.Stroke" Value="AccentBrush" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="c:NumberBox" BasedOn="{StaticResource {x:Type TextBox}}">
+    <Setter Property="Typography.NumeralAlignment" Value="Tabular" />
+  </Style>
+
+  <!-- ===== 8. 色の四角(見える四角 24×24、当たり判定 32×32。色は Background で渡す) ===== -->
+  <Style x:Key="ColorSwatch" TargetType="Button" BasedOn="{StaticResource GlintControlBase}">
+    <Setter Property="Width" Value="{StaticResource ColorSwatchHit}" />
+    <Setter Property="Height" Value="{StaticResource ColorSwatchHit}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Grid x:Name="Root" Background="Transparent">
+            <Border x:Name="Swatch" Width="{StaticResource ColorSwatchSize}" Height="{StaticResource ColorSwatchSize}" t:Fx.Press="True"
+                    Background="{TemplateBinding Background}" t:Fx.Stroke="BorderStrongBrush" BorderThickness="{StaticResource StrokeThickness}"
+                    CornerRadius="{StaticResource RadiusControl}" />
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Swatch" Property="t:Fx.Stroke" Value="TextSecondaryBrush" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- ===== 9・11. タイル(ルック・モーション)と選択中のタイル(枠 accent の 2 DIP。フォーカスでも枠の色は変えない) ===== -->
+  <Style x:Key="TileItem" TargetType="ListBoxItem">
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="t:FocusRing.IsEnabled" Value="True" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="MinHeight" Value="{StaticResource HitMin}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ListBoxItem">
+          <Grid x:Name="Root" t:Fx.Press="True">
+            <Border x:Name="Face" t:Fx.Fill="Surface2Brush" t:Fx.Stroke="BorderStrongBrush" BorderThickness="{StaticResource StrokeThickness}"
+                    CornerRadius="{StaticResource RadiusCard}" Padding="{TemplateBinding Padding}">
+              <ContentPresenter t:Fx.Text="TextPrimaryBrush" />
+            </Border>
+            <Border x:Name="Selection" t:Fx.Stroke="" BorderThickness="{StaticResource StrokeEmphasisThickness}" CornerRadius="{StaticResource RadiusCard}" />
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Face" Property="t:Fx.Fill" Value="Surface3Brush" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter TargetName="Selection" Property="t:Fx.Stroke" Value="AccentBrush" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- ===== 10・11. スタックの行と選択中の行(塗り surface-2・radius-control。選択中は枠 accent の 2 DIP) ===== -->
+  <Style x:Key="RowItem" TargetType="ListBoxItem">
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="t:FocusRing.IsEnabled" Value="True" />
+    <Setter Property="MinHeight" Value="{StaticResource HitMin}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="Padding" Value="{StaticResource Space2HorizontalThickness}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ListBoxItem">
+          <Grid x:Name="Root" t:Fx.Press="True">
+            <Border x:Name="Face" t:Fx.Fill="Surface2Brush" CornerRadius="{StaticResource RadiusControl}" Padding="{TemplateBinding Padding}">
+              <ContentPresenter t:Fx.Text="TextPrimaryBrush" VerticalAlignment="Center" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+            </Border>
+            <Border x:Name="Selection" t:Fx.Stroke="" BorderThickness="{StaticResource StrokeEmphasisThickness}" CornerRadius="{StaticResource RadiusControl}" />
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Face" Property="t:Fx.Fill" Value="Surface3Brush" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter TargetName="Selection" Property="t:Fx.Stroke" Value="AccentBrush" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- ===== 12・13. タブと選択中のタブ(文字 text-secondary。選択中は文字 accent-text と下端の accent の 2 DIP の線) ===== -->
+  <!-- タブの中身(Content)は論理の子で、文字色をタブ自身から継ぐ(テーマの既定は黒)。そこでタブ自身の文字色は text-primary にする。見出しの状態の色は、
+       中身に移らないよう、テンプレートの Header の ContentPresenter に付けたままにする(見出しは文字列) -->
+  <Style TargetType="TabItem">
+    <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="t:FocusRing.IsEnabled" Value="True" />
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}" />
+    <Setter Property="MinWidth" Value="{StaticResource HitMin}" />
+    <Setter Property="Padding" Value="{StaticResource ButtonPaddingThickness}" />
+    <Setter Property="FontFamily" Value="{StaticResource FontFamilyText}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeBody}" />
+    <Setter Property="FontWeight" Value="{StaticResource FontWeightBodyStrong}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TabItem">
+          <Grid x:Name="Root" Background="Transparent" t:Fx.Press="True">
+            <ContentPresenter x:Name="Header" ContentSource="Header" t:Fx.Text="TextSecondaryBrush" Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+            <Border x:Name="Underline" t:Fx.Stroke="" BorderThickness="{StaticResource TabUnderlineThickness}" />
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="Header" Property="t:Fx.Text" Value="TextPrimaryBrush" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter TargetName="Header" Property="t:Fx.Text" Value="AccentTextBrush" />
+              <Setter TargetName="Underline" Property="t:Fx.Stroke" Value="AccentBrush" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Root" Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="TabControl">
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TabControl">
+          <DockPanel>
+            <TabPanel DockPanel.Dock="Top" IsItemsHost="True" KeyboardNavigation.TabIndex="1" />
+            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" KeyboardNavigation.TabNavigation="Local" />
+          </DockPanel>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- ===== ツールチップ(面 surface-3。表の部品の外) ===== -->
+  <Style TargetType="ToolTip">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToolTip">
+          <Border Background="{DynamicResource Surface3Brush}" CornerRadius="{StaticResource RadiusControl}" Padding="{StaticResource ToolTipPaddingThickness}">
+            <ContentPresenter TextElement.Foreground="{DynamicResource TextPrimaryBrush}" TextElement.FontFamily="{StaticResource FontFamilyText}"
+                              TextElement.FontSize="{StaticResource FontSizeCaption}" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

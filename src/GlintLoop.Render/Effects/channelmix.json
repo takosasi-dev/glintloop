@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "channelmix",
+  "name": "チャンネル入れ替え",
+  "stage": "look",
+  "group": "色",
+  "keywords": ["チャンネル", "入れ替え", "channel", "swap", "channelmix"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "order", "label": "並び", "type": "enum", "default": "rgb",
+     "options": [{"value": "rgb", "label": "そのまま"}, {"value": "rbg", "label": "rbg"}, {"value": "grb", "label": "grb"},
+                 {"value": "gbr", "label": "gbr"}, {"value": "brg", "label": "brg"}, {"value": "bgr", "label": "bgr"}]}
+  ],
+  "passes": [
+    {"id": "main", "shader": "channelmix", "inputs": ["src"], "scale": 1, "bind": {"order": "order", "amount": "$amount"}}
+  ]
+}

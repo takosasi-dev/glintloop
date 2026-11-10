@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "mono",
+  "name": "白黒",
+  "stage": "look",
+  "group": "色",
+  "keywords": ["白黒", "モノクロ", "mono", "grayscale", "グレー"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "rw", "label": "赤の重み", "type": "float", "min": 0, "max": 100, "default": 30, "unit": "%"},
+    {"key": "gw", "label": "緑の重み", "type": "float", "min": 0, "max": 100, "default": 59, "unit": "%"},
+    {"key": "bw", "label": "青の重み", "type": "float", "min": 0, "max": 100, "default": 11, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "mono", "inputs": ["src"], "scale": 1, "bind": {"rw": "rw", "gw": "gw", "bw": "bw", "amount": "$amount"}}
+  ]
+}

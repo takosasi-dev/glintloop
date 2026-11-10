@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "tiltshift",
+  "name": "ミニチュア",
+  "stage": "finish",
+  "group": "ぼかし",
+  "keywords": ["tilt shift", "tiltshift", "miniature", "ジオラマ"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "angle", "label": "角度", "type": "angle", "min": -90, "max": 90, "default": 0, "step": 1, "unit": "deg"},
+    {"key": "pos", "label": "帯の位置", "type": "float", "min": 0, "max": 100, "default": 50, "step": 1, "unit": "%"},
+    {"key": "width", "label": "帯の幅", "type": "float", "min": 0, "max": 80, "default": 20, "step": 0.1, "unit": "%"},
+    {"key": "blur", "label": "ぼかし", "type": "float", "min": 0, "max": 100, "default": 30, "step": 1, "unit": "‰"}
+  ],
+  "passes": [
+    {"id": "h1", "shader": "tiltshift_h1", "inputs": ["src"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "v1", "shader": "tiltshift_v1", "inputs": ["pass:h1"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "h2", "shader": "tiltshift_h2", "inputs": ["src"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "v2", "shader": "tiltshift_v2", "inputs": ["pass:h2"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "h3", "shader": "tiltshift_h3", "inputs": ["src"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "v3", "shader": "tiltshift_v3", "inputs": ["pass:h3"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "h4", "shader": "tiltshift_h4", "inputs": ["src"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "v4", "shader": "tiltshift_v4", "inputs": ["pass:h4"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "lo", "shader": "tiltshift_lo", "inputs": ["src", "pass:v1", "pass:v2"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}},
+    {"id": "main", "shader": "tiltshift", "inputs": ["pass:lo", "pass:v2", "pass:v3", "pass:v4"], "scale": 1,
+     "bind": {"angle": "angle", "pos": "pos", "width": "width", "blur": "blur", "shortSide": "$shortSide", "texel": "$texel"}}
+  ]
+}

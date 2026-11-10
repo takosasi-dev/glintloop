@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "pulse",
+  "name": "ぷくぷく",
+  "stage": "motion",
+  "group": "動き",
+  "keywords": ["pulse", "heartbeat", "ぷくぷく", "鼓動", "拡大縮小"],
+  "amountMode": "scale",
+  "scaleParams": ["amp"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "shape", "label": "形", "type": "enum", "default": "sine",
+     "options": [{"value": "sine", "label": "sine"}, {"value": "tri", "label": "tri"}, {"value": "ease", "label": "ease"}, {"value": "saw", "label": "saw"}, {"value": "heartbeat", "label": "鼓動"}]},
+    {"key": "amp", "label": "振れ幅", "type": "float", "min": 0, "max": 50, "default": 10, "step": 1, "unit": "%"},
+    {"key": "pivot", "label": "中心", "type": "point", "default": {"x": 0.5, "y": 0.5}}
+  ],
+  "passes": [
+    {"id": "main", "shader": "pulse", "inputs": ["src"], "scale": 1,
+     "bind": {"shape": "shape", "amp": "amp", "pivot": "pivot", "t": "$t", "cycles": "$cycles", "phase": "$phase", "frame": "$frame"}}
+  ]
+}

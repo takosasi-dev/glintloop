@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "splittone",
+  "name": "分割トーン",
+  "stage": "look",
+  "group": "色",
+  "keywords": ["分割トーン", "split toning", "splittone", "softlight", "影", "ハイライト"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "shadow", "label": "影の色", "type": "color", "default": "#3A6EA5FF"},
+    {"key": "highlight", "label": "ハイライトの色", "type": "color", "default": "#FFB070FF"},
+    {"key": "balance", "label": "バランス", "type": "float", "min": -100, "max": 100, "default": 0, "unit": "%"},
+    {"key": "strength", "label": "色の強さ", "type": "float", "min": 0, "max": 100, "default": 50, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "splittone", "inputs": ["src"], "scale": 1, "bind": {"shadow": "shadow", "highlight": "highlight", "balance": "balance", "strength": "strength", "amount": "$amount"}}
+  ]
+}

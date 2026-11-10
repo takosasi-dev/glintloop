@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "spin",
+  "name": "回転",
+  "stage": "motion",
+  "group": "動き",
+  "keywords": ["spin", "rotate", "回転", "くるくる"],
+  "amountMode": "none",
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "dir", "label": "向き", "type": "enum", "default": "cw",
+     "options": [{"value": "cw", "label": "時計回り"}, {"value": "ccw", "label": "反時計回り"}]},
+    {"key": "pivot", "label": "中心", "type": "point", "default": {"x": 0.5, "y": 0.5}}
+  ],
+  "passes": [
+    {"id": "main", "shader": "spin", "inputs": ["src"], "scale": 1,
+     "bind": {"dir": "dir", "pivot": "pivot", "t": "$t", "cycles": "$cycles", "phase": "$phase", "frame": "$frame"}}
+  ]
+}

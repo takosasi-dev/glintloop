@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "invert",
+  "name": "色の反転",
+  "stage": "look",
+  "group": "色",
+  "keywords": ["反転", "ネガ", "invert", "negative"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [],
+  "passes": [
+    {"id": "main", "shader": "invert", "inputs": ["src"], "scale": 1, "bind": {"amount": "$amount"}}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "flip",
+  "name": "反転",
+  "stage": "shape",
+  "group": "寸法",
+  "keywords": ["flip", "mirror", "反転", "左右", "上下"],
+  "amountMode": "none",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "h", "label": "左右", "type": "bool", "default": false},
+    {"key": "v", "label": "上下", "type": "bool", "default": false}
+  ],
+  "passes": [
+    {"id": "main", "shader": "flip", "inputs": ["src"], "scale": 1, "bind": {"h": "h", "v": "v"}}
+  ]
+}

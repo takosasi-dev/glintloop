@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "shadow",
+  "name": "影",
+  "stage": "finish",
+  "group": "縁と文字",
+  "keywords": ["shadow", "drop shadow", "ドロップシャドウ", "影"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "dx", "label": "横のずれ", "type": "float", "min": -100, "max": 100, "default": 0, "step": 1, "unit": "‰"},
+    {"key": "dy", "label": "縦のずれ", "type": "float", "min": -100, "max": 100, "default": 20, "step": 1, "unit": "‰"},
+    {"key": "blur", "label": "ぼかし", "type": "float", "min": 0, "max": 100, "default": 20, "step": 1, "unit": "‰"},
+    {"key": "color", "label": "影の色", "type": "color", "default": "#000000B0"}
+  ],
+  "passes": [
+    {"id": "h", "shader": "shadow_h", "inputs": ["src"], "scale": 1, "bind": {"blur": "blur", "shortSide": "$shortSide"}},
+    {"id": "v", "shader": "shadow_v", "inputs": ["pass:h"], "scale": 1, "bind": {"blur": "blur", "shortSide": "$shortSide"}},
+    {"id": "main", "shader": "shadow", "inputs": ["src", "pass:v"], "scale": 1,
+     "bind": {"dx": "dx", "dy": "dy", "color": "color", "shortSide": "$shortSide"}}
+  ]
+}

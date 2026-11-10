@@ -1,0 +1,81 @@
+<!-- メインウィンドウの領域(仕様書 §9.3 の表): 上端のコマンドバー、左ペイン・キャンバスとタイムライン・右ペイン、下端の書き出し帯。領域の間隔は space-2。 -->
+<!-- 各領域は ContentControl(名前は *Host)で、中身は後の担当が UserControl で入れる。CanvasHost には CanvasView が入っているので、画像と重ね描きはその層に足す。通知バーはキャンバスの上端に重ね、ダイアログは一番上の層に重ねる。 -->
+<!-- ペインの境界(PaneSplitter)とペインの幅・高さはコード(MainWindow.xaml.cs)が置く。 -->
+<Window x:Class="GlintLoop.App.Shell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GlintLoop"
+        MinWidth="{StaticResource WindowMinWidth}" MinHeight="{StaticResource WindowMinHeight}"
+        Width="{StaticResource WindowDefaultWidth}" Height="{StaticResource WindowDefaultHeight}"
+        UseLayoutRounding="True" SnapsToDevicePixels="True"
+        FontFamily="{StaticResource FontFamilyText}" FontSize="{StaticResource FontSizeBody}"
+        Foreground="{DynamicResource TextPrimaryBrush}">
+  <Grid x:Name="RootLayer">
+    <Grid x:Name="EditorGrid">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="{Binding Source={StaticResource CommandBarHeight}}" />
+        <RowDefinition Height="{Binding Source={StaticResource Space2}}" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="{Binding Source={StaticResource Space2}}" />
+        <RowDefinition Height="{Binding Source={StaticResource ExportBandHeight}}" />
+      </Grid.RowDefinitions>
+
+      <ContentControl x:Name="CommandBarHost" Grid.Row="0" Focusable="False" IsTabStop="False" />
+
+      <Grid x:Name="MiddleGrid" Grid.Row="2">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition x:Name="LeftColumn" Width="{Binding Source={StaticResource LeftPaneWidth}}" />
+          <ColumnDefinition Width="{Binding Source={StaticResource Space2}}" />
+          <ColumnDefinition Width="*" MinWidth="{StaticResource CanvasMinWidth}" />
+          <ColumnDefinition Width="{Binding Source={StaticResource Space2}}" />
+          <ColumnDefinition x:Name="RightColumn" Width="{Binding Source={StaticResource RightPaneWidth}}" />
+        </Grid.ColumnDefinitions>
+
+        <Border x:Name="LeftPane" Grid.Column="0" Background="{DynamicResource Surface1Brush}" CornerRadius="{StaticResource RadiusCard}">
+          <ContentControl x:Name="LeftPaneHost" Focusable="False" IsTabStop="False" Margin="{StaticResource Space3Thickness}" />
+        </Border>
+
+        <Grid x:Name="CenterGrid" Grid.Column="2">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" MinHeight="{StaticResource CanvasMinHeight}" />
+            <RowDefinition Height="{Binding Source={StaticResource Space2}}" />
+            <RowDefinition x:Name="TimelineRow" Height="{Binding Source={StaticResource TimelineHeight}}" />
+          </Grid.RowDefinitions>
+          <Grid x:Name="CanvasArea" Grid.Row="0" ClipToBounds="True">
+            <ContentControl x:Name="CanvasHost" Focusable="False" IsTabStop="False" />
+            <ContentControl x:Name="WelcomeHost" Focusable="False" IsTabStop="False" />
+            <ContentControl x:Name="NoticeBarHost" Focusable="False" IsTabStop="False" VerticalAlignment="Top" />
+          </Grid>
+          <!-- タイムライン(Phase 4)は、仕様の高さの空の枠だけを置く -->
+          <Border x:Name="TimelineFrame" Grid.Row="2" Background="{DynamicResource Surface1Brush}" CornerRadius="{StaticResource RadiusCard}">
+            <ContentControl x:Name="TimelineHost" Focusable="False" IsTabStop="False" />
+          </Border>
+        </Grid>
+
+        <Border x:Name="RightPane" Grid.Column="4" Background="{DynamicResource Surface1Brush}" CornerRadius="{StaticResource RadiusCard}">
+          <Grid x:Name="RightGrid">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="{Binding Source={StaticResource RightPaneHeaderHeight}}" />
+              <RowDefinition x:Name="LayersRow" Height="{Binding Source={StaticResource LayerListDefaultHeight}}" />
+              <RowDefinition Height="{Binding Source={StaticResource Space2}}" />
+              <RowDefinition x:Name="StackRow" Height="{Binding Source={StaticResource StackMinHeight}}" />
+              <RowDefinition Height="{Binding Source={StaticResource Space2}}" />
+              <RowDefinition x:Name="ParamsRow" Height="*" />
+            </Grid.RowDefinitions>
+            <ContentControl x:Name="RightHeaderHost" Grid.Row="0" Focusable="False" IsTabStop="False" />
+            <ContentControl x:Name="LayerListHost" Grid.Row="1" Focusable="False" IsTabStop="False" />
+            <ContentControl x:Name="StackHost" Grid.Row="3" Focusable="False" IsTabStop="False" />
+            <ContentControl x:Name="ParamsHost" Grid.Row="5" Focusable="False" IsTabStop="False" />
+          </Grid>
+        </Border>
+      </Grid>
+
+      <!-- 書き出し帯(Phase 5)は、仕様の高さの空の枠だけを置く -->
+      <Border x:Name="ExportBandFrame" Grid.Row="4" Background="{DynamicResource Surface1Brush}">
+        <ContentControl x:Name="ExportBandHost" Focusable="False" IsTabStop="False" />
+      </Border>
+    </Grid>
+
+    <ContentControl x:Name="DialogLayerHost" Focusable="False" IsTabStop="False" />
+  </Grid>
+</Window>

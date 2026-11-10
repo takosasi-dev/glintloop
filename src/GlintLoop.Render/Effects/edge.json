@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "edge",
+  "name": "輪郭の調整",
+  "stage": "shape",
+  "group": "輪郭",
+  "keywords": ["edge", "choke", "spread", "輪郭", "境界", "縮める", "広げる"],
+  "amountMode": "none",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "shift", "label": "ずらす量", "type": "float", "min": -50, "max": 50, "default": 0, "step": 1, "unit": "‰"},
+    {"key": "feather", "label": "ぼかし", "type": "float", "min": 0, "max": 30, "default": 0, "step": 0.1, "unit": "‰"}
+  ],
+  "passes": [
+    {"id": "rows", "shader": "edge_rows", "inputs": ["src"], "scale": 1,
+     "bind": {"shift": "shift", "feather": "feather", "shortSide": "$shortSide"}},
+    {"id": "main", "shader": "edge", "inputs": ["src", "pass:rows"], "scale": 1,
+     "bind": {"shift": "shift", "feather": "feather", "shortSide": "$shortSide"}}
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "bounce",
+  "name": "バウンス",
+  "stage": "motion",
+  "group": "動き",
+  "keywords": ["bounce", "jump", "バウンス", "はねる", "ジャンプ"],
+  "amountMode": "scale",
+  "scaleParams": ["height", "squash"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "height", "label": "高さ", "type": "float", "min": 0, "max": 300, "default": 60, "step": 1, "unit": "‰"},
+    {"key": "squash", "label": "つぶれ", "type": "float", "min": 0, "max": 100, "default": 30, "step": 1, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "bounce", "inputs": ["src"], "scale": 1,
+     "bind": {"height": "height", "squash": "squash", "t": "$t", "cycles": "$cycles", "phase": "$phase", "frame": "$frame"}}
+  ]
+}

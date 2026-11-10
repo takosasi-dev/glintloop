@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "bleach",
+  "name": "銀残し",
+  "stage": "look",
+  "group": "表現",
+  "keywords": ["ブリーチバイパス", "bleach", "bypass", "映画"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "contrast", "label": "コントラスト", "type": "float", "min": 0, "max": 100, "default": 40, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "bleach", "inputs": ["src"], "scale": 1, "bind": {"contrast": "contrast"}}
+  ]
+}

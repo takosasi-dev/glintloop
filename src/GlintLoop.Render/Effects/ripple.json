@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "ripple",
+  "name": "波紋",
+  "stage": "motion",
+  "group": "乱れ",
+  "keywords": ["ripple", "wave", "波紋", "波", "ゆらぎ"],
+  "amountMode": "scale",
+  "scaleParams": ["amp"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "amp", "label": "揺れの大きさ", "type": "float", "min": 0, "max": 40, "default": 8, "step": 0.1, "unit": "‰"},
+    {"key": "len", "label": "波の間隔", "type": "float", "min": 30, "max": 500, "default": 120, "step": 1, "unit": "‰"},
+    {"key": "center", "label": "中心", "type": "point", "default": {"x": 0.5, "y": 0.5}},
+    {"key": "fall", "label": "減衰", "type": "float", "min": 0, "max": 100, "default": 50, "step": 1, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "ripple", "inputs": ["src"], "scale": 1,
+     "bind": {"amp": "amp", "len": "len", "center": "center", "fall": "fall", "t": "$t", "cycles": "$cycles", "phase": "$phase", "frame": "$frame"}}
+  ]
+}

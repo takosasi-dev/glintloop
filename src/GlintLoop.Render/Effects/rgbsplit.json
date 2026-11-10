@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "rgbsplit",
+  "name": "RGBずれ",
+  "stage": "motion",
+  "group": "乱れ",
+  "keywords": ["rgbsplit", "chromatic", "rgb", "ずれ", "色収差"],
+  "amountMode": "scale",
+  "scaleParams": ["amount"],
+  "timeDependent": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "amount", "label": "ずれの量", "type": "float", "min": 0, "max": 60, "default": 15, "unit": "‰"},
+    {"key": "angle", "label": "角度", "type": "angle", "min": -180, "max": 180, "default": 0, "unit": "deg"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "rgbsplit", "inputs": ["src"], "scale": 1,
+     "bind": {"amount": "amount", "angle": "angle", "shortSide": "$shortSide", "t": "$t", "cycles": "$cycles", "phase": "$phase", "wave": "$wave"}}
+  ]
+}

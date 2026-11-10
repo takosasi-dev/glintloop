@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "threshold",
+  "name": "しきい値",
+  "stage": "look",
+  "group": "表現",
+  "keywords": ["二値", "白黒", "threshold", "2階調"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "t", "label": "しきい値", "type": "float", "min": 0, "max": 100, "default": 50, "unit": "%"},
+    {"key": "soft", "label": "なめらかさ", "type": "float", "min": 0, "max": 30, "default": 2, "unit": "%"},
+    {"key": "dark", "label": "暗い側の色", "type": "color", "default": "#000000FF"},
+    {"key": "light", "label": "明るい側の色", "type": "color", "default": "#FFFFFFFF"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "threshold", "inputs": ["src"], "scale": 1, "bind": {"t": "t", "soft": "soft", "dark": "dark", "light": "light"}}
+  ]
+}

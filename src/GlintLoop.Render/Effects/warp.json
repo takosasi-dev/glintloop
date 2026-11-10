@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "id": "warp",
+  "name": "ひずみ",
+  "stage": "finish",
+  "group": "ひずみ",
+  "keywords": ["warp", "bulge", "twirl", "ふくらみ", "渦"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "kind", "label": "種類", "type": "enum", "default": "bulge",
+     "options": [{"value": "bulge", "label": "ふくらみ"}, {"value": "twirl", "label": "渦"}]},
+    {"key": "center", "label": "中心", "type": "point", "default": {"x": 0.5, "y": 0.5}},
+    {"key": "radius", "label": "半径", "type": "float", "min": 50, "max": 1000, "default": 400, "step": 1, "unit": "‰"},
+    {"key": "strength", "label": "ゆがみの量", "type": "float", "min": -100, "max": 100, "default": 50, "step": 1, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "warp", "inputs": ["src"], "scale": 1,
+     "bind": {"kind": "kind", "center": "center", "radius": "radius", "strength": "strength", "shortSide": "$shortSide", "texel": "$texel"}}
+  ]
+}

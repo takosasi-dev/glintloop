@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "palette",
+  "name": "パレット減色",
+  "stage": "look",
+  "group": "表現",
+  "keywords": ["減色", "ドット", "レトロ", "palette", "dither", "ベイヤー"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "kind", "label": "パレット", "type": "enum", "default": "p16",
+     "options": [{"value": "p16", "label": "16色"}, {"value": "g4", "label": "4階調の緑"}, {"value": "bw", "label": "白黒"}, {"value": "sepia4", "label": "4階調のセピア"}]},
+    {"key": "dither", "label": "ディザ", "type": "float", "min": 0, "max": 100, "default": 50, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "palette", "inputs": ["src"], "scale": 1, "bind": {"kind": "kind", "dither": "dither"}}
+  ]
+}

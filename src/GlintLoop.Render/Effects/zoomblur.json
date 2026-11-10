@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "zoomblur",
+  "name": "放射ぼかし",
+  "stage": "finish",
+  "group": "ぼかし",
+  "keywords": ["zoom", "spin", "radial blur", "ズーム", "回転", "放射"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "kind", "label": "種類", "type": "enum", "default": "zoom",
+     "options": [{"value": "zoom", "label": "ズーム"}, {"value": "spin", "label": "回転"}]},
+    {"key": "center", "label": "中心", "type": "point", "default": {"x": 0.5, "y": 0.5}},
+    {"key": "strength", "label": "ぼかしの量", "type": "float", "min": 0, "max": 100, "default": 25, "step": 1, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "zoomblur", "inputs": ["src"], "scale": 1,
+     "bind": {"kind": "kind", "center": "center", "strength": "strength", "texel": "$texel"}}
+  ]
+}

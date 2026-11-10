@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "saturation",
+  "name": "彩度",
+  "stage": "look",
+  "group": "色",
+  "keywords": ["彩度", "saturation", "vibrance", "自然な彩度", "oklab"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "saturation", "label": "彩度", "type": "float", "min": -100, "max": 100, "default": 0, "unit": "%"},
+    {"key": "vibrance", "label": "自然な彩度", "type": "float", "min": -100, "max": 100, "default": 0, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "saturation", "inputs": ["src"], "scale": 1, "bind": {"saturation": "saturation", "vibrance": "vibrance", "amount": "$amount"}}
+  ]
+}

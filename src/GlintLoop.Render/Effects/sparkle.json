@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "sparkle",
+  "name": "キラキラ",
+  "stage": "motion",
+  "group": "粒",
+  "keywords": ["sparkle", "twinkle", "star", "キラキラ", "星", "輝き"],
+  "amountMode": "scale",
+  "scaleParams": ["intensity"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "count", "label": "星の数", "type": "int", "min": 1, "max": 40, "default": 12},
+    {"key": "size", "label": "星の大きさ", "type": "float", "min": 10, "max": 200, "default": 60, "step": 1, "unit": "‰"},
+    {"key": "color", "label": "星の色", "type": "color", "default": "#FFFFFFFF"},
+    {"key": "intensity", "label": "輝きの強さ", "type": "float", "min": 0, "max": 300, "default": 100, "step": 1, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "sparkle", "inputs": ["src"], "scale": 1,
+     "bind": {"count": "count", "size": "size", "color": "color", "intensity": "intensity", "t": "$t", "cycles": "$cycles", "phase": "$phase", "seed": "$seed", "salt": "$salt", "frame": "$frame"}}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "id": "shine",
+  "name": "キラッ",
+  "stage": "motion",
+  "group": "色と光",
+  "keywords": ["shine", "gloss", "キラッ", "光沢", "反射"],
+  "amountMode": "scale",
+  "scaleParams": ["intensity"],
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "angle", "label": "角度", "type": "angle", "min": -90, "max": 90, "default": 25, "unit": "deg"},
+    {"key": "width", "label": "帯の幅", "type": "float", "min": 20, "max": 500, "default": 120, "unit": "‰"},
+    {"key": "soft", "label": "ぼかし", "type": "float", "min": 0, "max": 100, "default": 60, "unit": "%"},
+    {"key": "intensity", "label": "光の強さ", "type": "float", "min": 0, "max": 300, "default": 100, "unit": "%"},
+    {"key": "color", "label": "光の色", "type": "color", "default": "#FFFFFFFF"},
+    {"key": "pause", "label": "休み", "type": "float", "min": 0, "max": 80, "default": 30, "unit": "%"}
+  ],
+  "passes": [
+    {"id": "main", "shader": "shine", "inputs": ["src"], "scale": 1,
+     "bind": {"angle": "angle", "width": "width", "soft": "soft", "intensity": "intensity", "color": "color", "pause": "pause",
+              "t": "$t", "cycles": "$cycles", "phase": "$phase", "frame": "$frame"}}
+  ]
+}

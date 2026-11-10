@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "wb",
+  "name": "色温度",
+  "stage": "look",
+  "group": "色",
+  "keywords": ["色温度", "ホワイトバランス", "wb", "temp", "tint", "white balance"],
+  "amountMode": "mix",
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "temp", "label": "色温度", "type": "float", "min": -100, "max": 100, "default": 0},
+    {"key": "tint", "label": "色かぶり", "type": "float", "min": -100, "max": 100, "default": 0}
+  ],
+  "passes": [
+    {"id": "main", "shader": "wb", "inputs": ["src"], "scale": 1, "bind": {"temp": "temp", "tint": "tint", "amount": "$amount"}}
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "aberration",
+  "name": "色ずれ",
+  "stage": "finish",
+  "group": "光",
+  "keywords": ["aberration", "chromatic", "色収差", "rgb", "ずれ"],
+  "amountMode": "scale",
+  "scaleParams": ["amount"],
+  "timeDependent": false,
+  "sizeRule": "same",
+  "params": [
+    {"key": "mode", "label": "方式", "type": "enum", "default": "radial",
+     "options": [{"value": "radial", "label": "放射"}, {"value": "linear", "label": "直線"}]},
+    {"key": "amount", "label": "ずれの量", "type": "float", "min": 0, "max": 30, "default": 6, "step": 0.1, "unit": "‰"},
+    {"key": "angle", "label": "角度", "type": "angle", "min": -180, "max": 180, "default": 0, "step": 1, "unit": "deg",
+     "visibleWhen": {"mode": ["linear"]}}
+  ],
+  "passes": [
+    {"id": "main", "shader": "aberration", "inputs": ["src"], "scale": 1,
+     "bind": {"mode": "mode", "amount": "amount", "angle": "angle", "shortSide": "$shortSide", "texel": "$texel"}}
+  ]
+}

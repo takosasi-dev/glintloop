@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "coinflip",
+  "name": "コイン",
+  "stage": "motion",
+  "group": "動き",
+  "keywords": ["coinflip", "flip", "coin", "コイン", "裏返す"],
+  "amountMode": "none",
+  "timeDependent": true,
+  "noWave": true,
+  "sizeRule": "same",
+  "params": [
+    {"key": "axis", "label": "軸", "type": "enum", "default": "y",
+     "options": [{"value": "y", "label": "縦軸"}, {"value": "x", "label": "横軸"}]}
+  ],
+  "passes": [
+    {"id": "main", "shader": "coinflip", "inputs": ["src"], "scale": 1,
+     "bind": {"axis": "axis", "t": "$t", "cycles": "$cycles", "phase": "$phase", "frame": "$frame"}}
+  ]
+}
